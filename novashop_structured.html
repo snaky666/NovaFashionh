@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novashop - متجرك الإلكتروني العصري</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo" onclick="showSection('home')">Novashop</div>
+            <nav>
+                <a href="#" onclick="showSection('home')" data-en="Home" data-ar="الرئيسية">الرئيسية</a>
+                <a href="#" onclick="showSection('products')" data-en="Products" data-ar="المنتجات">المنتجات</a>
+                <a href="#" onclick="showSection('about')" data-en="About Us" data-ar="من نحن">من نحن</a>
+                <a href="#" onclick="showSection('contact')" data-en="Contact" data-ar="اتصل بنا">اتصل بنا</a>
+                <a href="#" onclick="showSection('cart')" data-en="Cart" data-ar="السلة" style="position: relative;">
+                    <span data-en="Cart" data-ar="السلة">السلة</span>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </a>
+                <button class="lang-btn" onclick="toggleLanguage()">EN | AR</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="heroSection">
+        <h1 data-en="Welcome to Novashop" data-ar="مرحبًا بك في Novashop">مرحبًا بك في Novashop</h1>
+        <p data-en="Your modern online store for fashion and accessories" data-ar="متجرك الإلكتروني العصري للأزياء والإكسسوارات">متجرك الإلكتروني العصري للأزياء والإكسسوارات</p>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="categoriesSection">
+        <h2 class="section-title" data-en="Shop by Category" data-ar="تسوق حسب الفئة">تسوق حسب الفئة</h2>
+        <div class="category-grid">
+            <div class="category-card" onclick="showProducts('men')">
+                <div class="category-icon">👔</div>
+                <h3 data-en="Men's Fashion" data-ar="أزياء رجالية">أزياء رجالية</h3>
+            </div>
+            <div class="category-card" onclick="showProducts('women')">
+                <div class="category-icon">👗</div>
+                <h3 data-en="Women's Fashion" data-ar="أزياء نسائية">أزياء نسائية</h3>
+            </div>
+            <div class="category-card" onclick="showProducts('kids')">
+                <div class="category-icon">🧒</div>
+                <h3 data-en="Kids Fashion" data-ar="أزياء أطفال">أزياء أطفال</h3>
+            </div>
+            <div class="category-card" onclick="showProducts('shoes')">
+                <div class="category-icon">👟</div>
+                <h3 data-en="Shoes" data-ar="أحذية">أحذية</h3>
+            </div>
+            <div class="category-card" onclick="showProducts('accessories')">
+                <div class="category-icon">👜</div>
+                <h3 data-en="Accessories" data-ar="إكسسوارات">إكسسوارات</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="productsSection">
+        <button class="back-btn" onclick="showSection('home')" data-en="← Back to Home" data-ar="← العودة للرئيسية">← العودة للرئيسية</button>
+        <h2 class="section-title" id="categoryTitle"></h2>
+        <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section" id="cartSection">
+        <button class="back-btn" onclick="showSection('home')" data-en="← Back to Home" data-ar="← العودة للرئيسية">← العودة للرئيسية</button>
+        <h2 class="section-title" data-en="Shopping Cart" data-ar="سلة التسوق">سلة التسوق</h2>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal" style="display: none;">
+            <h3 data-en="Total:" data-ar="المجموع:">المجموع: <span id="totalAmount">0</span> <span data-en="DZD" data-ar="دج">دج</span></h3>
+            <button class="checkout-btn" onclick="showSection('contact')" data-en="Proceed to Order" data-ar="إتمام الطلب">إتمام الطلب</button>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contactSection">
+        <button class="back-btn" onclick="showSection('home')" data-en="← Back to Home" data-ar="← العودة للرئيسية">← العودة للرئيسية</button>
+        <h2 class="section-title" data-en="Contact Us" data-ar="اتصل بنا">اتصل بنا</h2>
+        <form class="contact-form" onsubmit="submitOrder(event)">
+            <div class="form-group">
+                <label data-en="Full Name" data-ar="الاسم الكامل">الاسم الكامل</label>
+                <input type="text" id="fullName" required>
+            </div>
+            <div class="form-group">
+                <label data-en="Phone Number" data-ar="رقم الهاتف">رقم الهاتف</label>
+                <input type="tel" id="phoneNumber" required>
+            </div>
+            <div class="form-group">
+                <label data-en="Wilaya (Province)" data-ar="الولاية">الولاية</label>
+                <select id="wilayaSelect" onchange="updateCommunes()" required>
+                    <option value="" data-en="Select Wilaya" data-ar="اختر الولاية">اختر الولاية</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-en="Commune" data-ar="البلدية">البلدية</label>
+                <select id="communeSelect" required>
+                    <option value="" data-en="Select Commune" data-ar="اختر البلدية">اختر البلدية</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-en="Message (Optional)" data-ar="رسالة (اختياري)">رسالة (اختياري)</label>
+                <textarea id="messageText" rows="4"></textarea>
+            </div>
+            <button type="submit" class="submit-btn" data-en="Submit Order" data-ar="إرسال الطلب">إرسال الطلب</button>
+        </form>
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://wa.me/213123456789" class="whatsapp-btn" target="_blank">
+                📱 <span data-en="WhatsApp Direct Contact" data-ar="تواصل مباشر عبر واتساب">تواصل مباشر عبر واتساب</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="aboutSection">
+        <button class="back-btn" onclick="showSection('home')" data-en="← Back to Home" data-ar="← العودة للرئيسية">← العودة للرئيسية</button>
+        <h2 data-en="About Us" data-ar="من نحن">من نحن</h2>
+        <p data-en="Welcome to Novashop, your premier online destination for fashion and accessories in Algeria. We are committed to providing you with the latest trends and highest quality products at competitive prices." data-ar="مرحبًا بكم في Novashop، وجهتكم الأولى للتسوق الإلكتروني للأزياء والإكسسوارات في الجزائر. نحن ملتزمون بتقديم أحدث صيحات الموضة وأعلى جودة من المنتجات بأسعار تنافسية.">
+            مرحبًا بكم في Novashop، وجهتكم الأولى للتسوق الإلكتروني للأزياء والإكسسوارات في الجزائر. نحن ملتزمون بتقديم أحدث صيحات الموضة وأعلى جودة من المنتجات بأسعار تنافسية.
+        </p>
+        <p data-en="Our mission is to make online shopping easy, secure, and enjoyable for all Algerian customers. We offer a wide range of products including men's, women's, and children's fashion, shoes, and accessories." data-ar="مهمتنا هي جعل التسوق الإلكتروني سهلاً وآمنًا وممتعًا لجميع العملاء الجزائريين. نحن نقدم مجموعة واسعة من المنتجات تشمل أزياء رجالية ونسائية وللأطفال، بالإضافة إلى الأحذية والإكسسوارات.">
+            مهمتنا هي جعل التسوق الإلكتروني سهلاً وآمنًا وممتعًا لجميع العملاء الجزائريين. نحن نقدم مجموعة واسعة من المنتجات تشمل أزياء رجالية ونسائية وللأطفال، بالإضافة إلى الأحذية والإكسسوارات.
+        </p>
+        <p data-en="We pride ourselves on excellent customer service and fast delivery across all Algerian provinces. Your satisfaction is our top priority!" data-ar="نحن نفخر بخدمة العملاء الممتازة والتوصيل السريع عبر جميع الولايات الجزائرية. رضاكم هو أولويتنا!">
+            نحن نفخر بخدمة العملاء الممتازة والتوصيل السريع عبر جميع الولايات الجزائرية. رضاكم هو أولويتنا!
+        </p>
+    </section>
+
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
